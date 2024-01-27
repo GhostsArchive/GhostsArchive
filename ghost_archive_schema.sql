@@ -1,3 +1,13 @@
+-- Create Addresses table
+CREATE TABLE Addresses (
+    address_id INT PRIMARY KEY,
+    street_address VARCHAR(255),
+    city VARCHAR(255),
+    state_province VARCHAR(255),
+    postal_code VARCHAR(255),
+    country VARCHAR(255)
+);
+
 -- Create People table to store individual information
 CREATE TABLE People (
     person_id INT PRIMARY KEY,
@@ -13,7 +23,7 @@ CREATE TABLE People (
     person_bio_summary TEXT,
     person_bio TEXT,
     address_id INT,
-    FOREIGN KEY (address_id) REFERENCES Addresses(address_id)
+    FOREIGN KEY (address_id) REFERENCES Addresses(address_id) ON DELETE SET NULL
 );
 
 -- Create a table to store individual names
@@ -22,7 +32,7 @@ CREATE TABLE PeopleNames (
     person_id INT,
     name_type VARCHAR(255), -- e.g., first_name, nickname, surname, also_known_as
     name_value VARCHAR(255),
-    FOREIGN KEY (person_id) REFERENCES People(person_id)
+    FOREIGN KEY (person_id) REFERENCES People(person_id) ON DELETE SET NULL
 );
 
 -- Create Families table to represent nuclear families
@@ -39,8 +49,8 @@ CREATE TABLE FamilyMembers (
     person_id INT,
     relationship_type VARCHAR(255), -- e.g., 'parent', 'child', 'spouse'
     relationship_comment TEXT,
-    FOREIGN KEY (family_id) REFERENCES Families(family_id),
-    FOREIGN KEY (person_id) REFERENCES People(person_id)
+    FOREIGN KEY (family_id) REFERENCES Families(family_id) ON DELETE SET NULL,
+    FOREIGN KEY (person_id) REFERENCES People(person_id) ON DELETE SET NULL
 );
 
 -- Create Articles table
@@ -50,9 +60,9 @@ CREATE TABLE Articles (
     article_summary TEXT,
     article_content TEXT,
     article_author_id INT,
-    FOREIGN KEY (article_author_id) REFERENCES People(person_id),
-    article_date DATE,
-    article_accessed DATE,
+    FOREIGN KEY (article_author_id) REFERENCES People(person_id) ON DELETE SET NULL,
+    article_date VARCHAR(255),
+    article_accessed VARCHAR(255),
     article_url VARCHAR(255)
 );
 
@@ -65,10 +75,10 @@ CREATE TABLE ArticleNames (
     person_id INT,
     org_id INT,
     loc_id INT,
-    FOREIGN KEY (article_id) REFERENCES Articles(article_id),
-    FOREIGN KEY (person_id) REFERENCES People(person_id),
-    FOREIGN KEY (org_id) REFERENCES Orgs(org_id),
-    FOREIGN KEY (loc_id) REFERENCES Locs(loc_id)
+    FOREIGN KEY (article_id) REFERENCES Articles(article_id) ON DELETE SET NULL,
+    FOREIGN KEY (person_id) REFERENCES People(person_id) ON DELETE SET NULL,
+    FOREIGN KEY (org_id) REFERENCES Orgs(org_id) ON DELETE SET NULL,
+    FOREIGN KEY (loc_id) REFERENCES Locs(loc_id) ON DELETE SET NULL
 );
 
 -- Create a table to store information about organizations
@@ -77,7 +87,7 @@ CREATE TABLE Orgs (
     org_name VARCHAR(255),
     org_bio TEXT,
     address_id INT,
-    FOREIGN KEY (address_id) REFERENCES Addresses(address_id)
+    FOREIGN KEY (address_id) REFERENCES Addresses(address_id) ON DELETE SET NULL
 );
 
 -- Create a table to store Locations 
@@ -87,7 +97,7 @@ CREATE TABLE Locs (
     loc_info TEXT,
     loc_url VARCHAR(255),
     address_id INT,
-    FOREIGN KEY (address_id) REFERENCES Addresses(address_id)
+    FOREIGN KEY (address_id) REFERENCES Addresses(address_id) ON DELETE SET NULL
 );
 
 -- Create a table to store Case File information
@@ -100,7 +110,7 @@ CREATE TABLE Casefile (
     casefile_created_date DATE,
     casefile_closed_date DATE,
     casefile_assigned_to INT, -- Reference to the investigator (People.person_id)
-    FOREIGN KEY (casefile_assigned_to) REFERENCES People(person_id)
+    FOREIGN KEY (casefile_assigned_to) REFERENCES People(person_id) ON DELETE SET NULL
 );
 
 -- Create a table to link Case Files to People
@@ -108,8 +118,8 @@ CREATE TABLE CasefilePeople (
     casefile_id INT,
     person_id INT,
     PRIMARY KEY (casefile_id, person_id),
-    FOREIGN KEY (casefile_id) REFERENCES Casefile(casefile_id),
-    FOREIGN KEY (person_id) REFERENCES People(person_id)
+    FOREIGN KEY (casefile_id) REFERENCES Casefile(casefile_id) ON DELETE SET NULL,
+    FOREIGN KEY (person_id) REFERENCES People(person_id) ON DELETE SET NULL
 );
 
 -- Create a table to link Case Files to Organizations
@@ -117,8 +127,8 @@ CREATE TABLE CasefileOrgs (
     casefile_id INT,
     org_id INT,
     PRIMARY KEY (casefile_id, org_id),
-    FOREIGN KEY (casefile_id) REFERENCES Casefile(casefile_id),
-    FOREIGN KEY (org_id) REFERENCES Orgs(org_id)
+    FOREIGN KEY (casefile_id) REFERENCES Casefile(casefile_id) ON DELETE SET NULL,
+    FOREIGN KEY (org_id) REFERENCES Orgs(org_id) ON DELETE SET NULL
 );
 
 -- Create a table to link Case Files to Families
@@ -126,8 +136,8 @@ CREATE TABLE CasefileFamilies (
     casefile_id INT,
     family_id INT,
     PRIMARY KEY (casefile_id, family_id),
-    FOREIGN KEY (casefile_id) REFERENCES Casefile(casefile_id),
-    FOREIGN KEY (family_id) REFERENCES Families(family_id)
+    FOREIGN KEY (casefile_id) REFERENCES Casefile(casefile_id) ON DELETE SET NULL,
+    FOREIGN KEY (family_id) REFERENCES Families(family_id) ON DELETE SET NULL
 );
 
 -- Create a table to link Case Files to Locations
@@ -135,8 +145,8 @@ CREATE TABLE CasefileLocs (
     casefile_id INT,
     loc_id INT,
     PRIMARY KEY (casefile_id, loc_id),
-    FOREIGN KEY (casefile_id) REFERENCES Casefile(casefile_id),
-    FOREIGN KEY (loc_id) REFERENCES Locs(loc_id)
+    FOREIGN KEY (casefile_id) REFERENCES Casefile(casefile_id) ON DELETE SET NULL,
+    FOREIGN KEY (loc_id) REFERENCES Locs(loc_id) ON DELETE SET NULL
 );
 
 -- Create a table to link Case Files to Addresses
@@ -144,8 +154,8 @@ CREATE TABLE CasefileAddresses (
     casefile_id INT,
     address_id INT,
     PRIMARY KEY (casefile_id, address_id),
-    FOREIGN KEY (casefile_id) REFERENCES Casefile(casefile_id),
-    FOREIGN KEY (address_id) REFERENCES Addresses(address_id)
+    FOREIGN KEY (casefile_id) REFERENCES Casefile(casefile_id) ON DELETE SET NULL,
+    FOREIGN KEY (address_id) REFERENCES Addresses(address_id) ON DELETE SET NULL
 );
 
 -- Create a table to link Case Files to People Names
@@ -153,8 +163,8 @@ CREATE TABLE CasefilePeopleNames (
     casefile_id INT,
     name_id INT,
     PRIMARY KEY (casefile_id, name_id),
-    FOREIGN KEY (casefile_id) REFERENCES Casefile(casefile_id),
-    FOREIGN KEY (name_id) REFERENCES PeopleNames(name_id)
+    FOREIGN KEY (casefile_id) REFERENCES Casefile(casefile_id) ON DELETE SET NULL,
+    FOREIGN KEY (name_id) REFERENCES PeopleNames(name_id) ON DELETE SET NULL
 );
 
 -- Create a table to link Case Files to Articles
@@ -162,6 +172,6 @@ CREATE TABLE CasefileArticles (
     casefile_id INT,
     article_id INT,
     PRIMARY KEY (casefile_id, article_id),
-    FOREIGN KEY (casefile_id) REFERENCES Casefile(casefile_id),
-    FOREIGN KEY (article_id) REFERENCES Articles(article_id)
+    FOREIGN KEY (casefile_id) REFERENCES Casefile(casefile_id) ON DELETE SET NULL,
+    FOREIGN KEY (article_id) REFERENCES Articles(article_id) ON DELETE SET NULL
 );
