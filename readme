@@ -5,6 +5,7 @@ locations, and investigative cases. It's a versatile structure aimed at
 supporting journalistic investigations.
 
 Table of Contents
+Prerequisites
 Getting Started
 Tables Overview
 Populating the Database
@@ -13,6 +14,10 @@ Contributing
 License
 Getting Started
 Clone the Repository:
+
+Prerequisites
+
+Install the MySQL library with: pip install mysql-connector-python
 
 bash
 Copy code
