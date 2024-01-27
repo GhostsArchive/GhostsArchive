@@ -21,8 +21,7 @@ I highly recommend having DBeaver https://dbeaver.io for this project.
 
 bash
 Copy code
-git clone https://github.com/your-username/ghost-archive-database.git
-cd ghost-archive-database
+
 Database Setup:
 
 Create a new database in your preferred SQL environment.
