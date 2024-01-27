@@ -1,1 +1,89 @@
-G
+Ghost Archive Database
+Welcome to the Ghost Archive Database! This database is designed to organize and store information related to individuals, families, articles, organizations, locations, and investigative cases. It's a versatile structure aimed at supporting journalistic investigations.
+
+Table of Contents
+Getting Started
+Tables Overview
+Populating the Database
+Queries and Use Cases
+Contributing
+License
+Getting Started
+Clone the Repository:
+
+bash
+Copy code
+git clone https://github.com/your-username/ghost-archive-database.git
+cd ghost-archive-database
+Database Setup:
+
+Create a new database in your preferred SQL environment.
+Execute the ghost_archive_schema.sql script to set up the tables and relationships.
+Configurations:
+
+Modify the script or tables if needed, based on your specific requirements.
+Tables Overview
+People:
+
+Information about individuals, including personal details and relationships.
+Families:
+
+Representation of nuclear families with family history.
+Articles:
+
+Details about articles, including titles, summaries, content, and authors.
+ArticleNames:
+
+Associations between articles and names (people, places, organizations).
+Orgs:
+
+Information about organizations, including names, bios, and addresses.
+Locs:
+
+Details about locations, including names, information, and addresses.
+Addresses:
+
+Storage for addresses, linked to individuals, organizations, and locations.
+PeopleNames:
+
+Store various names associated with individuals.
+FamilyMembers:
+
+Establishment of family relationships.
+Casefile:
+
+Storage for information related to investigative cases.
+Populating the Database
+Execute SQL queries to insert data into the respective tables.
+Modify the provided example data according to your specific use case.
+Queries and Use Cases
+Use SQL queries to extract meaningful information from the database.
+Example queries for common use cases can be found in the example_queries.sql file.
+Contributing
+Contributions are welcome! If you have improvements, additional features, or bug fixes, feel free to fork the repository and submit a pull request.
+
+License
+This is free and unencumbered software released into the public domain.
+
+Anyone is free to copy, modify, publish, use, compile, sell, or
+distribute this software, either in source code form or as a compiled
+binary, for any purpose, commercial or non-commercial, and by any
+means.
+
+In jurisdictions that recognize copyright laws, the author or authors
+of this software dedicate any and all copyright interest in the
+software to the public domain. We make this dedication for the benefit
+of the public at large and to the detriment of our heirs and
+successors. We intend this dedication to be an overt act of
+relinquishment in perpetuity of all present and future rights to this
+software under copyright law.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+
+For more information, please refer to <http://unlicense.org/>
