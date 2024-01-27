@@ -1,3 +1,95 @@
+-- Create People table to store individual information
+CREATE TABLE People (
+    person_id INT PRIMARY KEY,
+    person_gender VARCHAR(255),
+    person_birth_date DATE,
+    person_death_date DATE,
+    person_social_media_ids VARCHAR(255),
+    person_email_ids VARCHAR(255),
+    person_phone_number_ids VARCHAR(255),
+    person_article_ids VARCHAR(255),
+    person_photo_ids VARCHAR(255),
+    person_case_ids VARCHAR(255),
+    person_bio_summary TEXT,
+    person_bio TEXT,
+    address_id INT,
+    FOREIGN KEY (address_id) REFERENCES Addresses(address_id)
+);
+
+-- Create a table to store individual names
+CREATE TABLE PeopleNames (
+    name_id INT PRIMARY KEY,
+    person_id INT,
+    name_type VARCHAR(255), -- e.g., first_name, nickname, surname, also_known_as
+    name_value VARCHAR(255),
+    FOREIGN KEY (person_id) REFERENCES People(person_id)
+);
+
+-- Create Families table to represent nuclear families
+CREATE TABLE Families (
+    family_id INT PRIMARY KEY,
+    family_surname VARCHAR(255),
+    family_history TEXT
+);
+
+-- Create a table to store family relationships
+CREATE TABLE FamilyMembers (
+    family_member_id INT PRIMARY KEY,
+    family_id INT,
+    person_id INT,
+    relationship_type VARCHAR(255), -- e.g., 'parent', 'child', 'spouse'
+    relationship_comment TEXT,
+    FOREIGN KEY (family_id) REFERENCES Families(family_id),
+    FOREIGN KEY (person_id) REFERENCES People(person_id)
+);
+
+-- Create Articles table
+CREATE TABLE Articles (
+    article_id INT PRIMARY KEY,
+    article_title VARCHAR(255),
+    article_summary TEXT,
+    article_content TEXT,
+    article_author_id INT,
+    FOREIGN KEY (article_author_id) REFERENCES People(person_id),
+    article_date DATE,
+    article_accessed DATE,
+    article_url VARCHAR(255)
+);
+
+-- Create a table to store names of people, places, or organizations mentioned in articles
+CREATE TABLE ArticleNames (
+    article_name_id INT PRIMARY KEY,
+    article_id INT,
+    name_type VARCHAR(255), -- e.g., person_name, place_name, organization
+    name_value VARCHAR(255),
+    person_id INT,
+    org_id INT,
+    loc_id INT,
+    FOREIGN KEY (article_id) REFERENCES Articles(article_id),
+    FOREIGN KEY (person_id) REFERENCES People(person_id),
+    FOREIGN KEY (org_id) REFERENCES Orgs(org_id),
+    FOREIGN KEY (loc_id) REFERENCES Locs(loc_id)
+);
+
+-- Create a table to store information about organizations
+CREATE TABLE Orgs (
+    org_id INT PRIMARY KEY,
+    org_name VARCHAR(255),
+    org_bio TEXT,
+    address_id INT,
+    FOREIGN KEY (address_id) REFERENCES Addresses(address_id)
+);
+
+-- Create a table to store Locations 
+CREATE TABLE Locs (
+    loc_id INT PRIMARY KEY,
+    loc_name VARCHAR(255),
+    loc_info TEXT,
+    loc_url VARCHAR(255),
+    address_id INT,
+    FOREIGN KEY (address_id) REFERENCES Addresses(address_id)
+);
+
 -- Create a table to store Case File information
 CREATE TABLE Casefile (
     casefile_id INT PRIMARY KEY,
